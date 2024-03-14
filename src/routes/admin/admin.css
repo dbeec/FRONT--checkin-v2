@@ -17,3 +17,13 @@
   overflow-y: auto;
   box-sizing: border-box;
 }
+
+.content__information::-webkit-scrollbar {
+  width: 10px;
+}
+
+.content__information::-webkit-scrollbar-thumb {
+  background: #2074d4;
+  border-radius: 5px;
+  border-right: solid 2px #fff;
+}
