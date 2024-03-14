@@ -2,11 +2,12 @@
 import { IconButton } from "@mui/material";
 import "./header.css";
 import { MdMenu } from "react-icons/md";
+import moment from "moment";
 
 export default function Header({ set_open }: { set_open: () => void }) {
-  // const date = moment();
+  const date = moment();
 
-  //funcion para cerrar sesion
+  // funcion para cerrar sesion
   // const logoutSession = () => {
   //   localStorage.removeItem("access token");
   //   alert("YEPP, You have successfully logged out! 😶‍🌫️");
@@ -25,7 +26,7 @@ export default function Header({ set_open }: { set_open: () => void }) {
             <li>
               Welcome back, <span className="header__name">Johan Díaz</span>
             </li>
-            {/* <span>{date.format("ddd, LL")}</span> */}
+            <span>{date.format("ddd, LL")}</span>
           </div>
         </div>
 
