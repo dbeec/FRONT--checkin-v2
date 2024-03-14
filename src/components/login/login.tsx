@@ -42,6 +42,9 @@ export default function Login() {
       })
       .catch((error) => {
         toast.error(error.response.data.message);
+      })
+      .finally(() => {
+        toast.error("Error de conexión en el servidor")
       });
   };
   return (
