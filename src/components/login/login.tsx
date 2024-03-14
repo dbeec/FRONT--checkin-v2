@@ -14,16 +14,22 @@ export default function Login() {
   });
 
   const handleInputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name } = e.target;
-    let value = e.target.value.replace(/\D/g, "");
+    const { name, value } = e.target;
+    // let value = e.target.value.replace(/\D/g, "");
     setAuth({
       ...auth,
       [name]: value,
     });
   };
 
+  const promise = () =>
+    new Promise((resolve) =>
+      setTimeout(() => resolve({ name: "Error:" }), 2000)
+    );
+
   const handleLogin = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    console.log(auth.document, auth.empPass);
     if (auth.document === "" || auth.empPass === "") {
       return toast.warning("Please complete all fields to log in.");
     }
@@ -44,7 +50,14 @@ export default function Login() {
         toast.error(error.response.data.message);
       })
       .finally(() => {
-        toast.error("Error de conexión en el servidor")
+        toast.error("Error de conexión en el servidor");
+        toast.promise(promise, {
+          loading: 'Loading...',
+          success: (data: any) => {
+            return `${data.name} Internal server`;
+          },
+          error: 'Error'
+        })
       });
   };
   return (
@@ -70,7 +83,7 @@ export default function Login() {
               name="document"
               variant="outlined"
               onChange={handleInputOnChange}
-              value={auth.document}
+              // value={auth.document}
               size="small"
               sx={{
                 "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
