@@ -1,12 +1,12 @@
 .header {
-  background-color: #007f73;
+  background-color: #2074d4;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
   width: 100%;
   height: 10vh;
-  border-bottom: 1px solid #01756a;
+  border-bottom: 1px solid #1c67bd;
 }
 
 .header__welcome {
@@ -30,10 +30,24 @@
   font-weight: 500;
 }
 
+.header__info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .header__profile {
   background-color: #000;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid #eee;
   cursor: pointer;
+}
+
+.header__menubtn {
+  display: none !important;
+  @media (max-width: 1200px) {
+    align-items: center;
+    display: flex !important;
+  }
 }

@@ -15,7 +15,7 @@ export default function Sidebar({
 
   return (
     <>
-      <div className="sidebar">
+      <div className={`sidebar ${open_drawer && "sidebar__open"}`}>
         <div className="sidebar__logo">
           <h2>
             Check<span>In</span>
@@ -65,6 +65,10 @@ export default function Sidebar({
           ))}
         </ul>
       </div>
+      <div
+        className={`sidebar__bg-active ${!open_drawer && "sidebar__bg-disable"}`}
+        onClick={set_open}
+      />
     </>
   );
 }

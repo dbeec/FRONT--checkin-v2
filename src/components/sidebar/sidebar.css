@@ -4,24 +4,48 @@
   position: relative;
   width: 250px;
   height: 100vh;
-  background-color: #007f73;
+  background-color: #2074d4;
   padding: 0 1rem;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 4px;
   overflow-y: auto;
+  transition: all .2s ease-in-out;
 
   @media (max-width: 1200px) {
-    display: none;
+    position: absolute;
+    left: -250px; /* Coincide con el ancho del sidebar */
   }
-}
-.sidebarClose {
-  @media (max-width: 1200px) {
-    display: flex;
-}
 }
 
 /* scroll personalizado */
 .sidebar::-webkit-scrollbar {
   display: none;
+}
+
+.sidebar__open {
+  display: flex;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+
+.sidebar__bg-active {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #0000005b;
+  transition: all .2s ease-in-out;
+  @media (max-width: 1200px) {
+    display: block;
+  }
+}
+
+.sidebar__bg-disable {
+  pointer-events: none;
+  background-color: #00000000;
 }
 
 .sidebar__logo {
@@ -31,7 +55,7 @@
   width: 100%;
   height: 10vh;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid #01756a;
+  border-bottom: 1px solid #1c67bd;
 }
 
 .sidebar__logo h2 {
