@@ -18,7 +18,7 @@ export default function Admin() {
         <div className="content__header">
           <Header set_open={handleToggle}/>
           <div className="content__information">
-            {/* Aqui va el contenido principal, NO BORRAR EL COMPONENTE */}
+            {/* Aqui va el contenido principal, NO BORRAR EL COMPONENTE OUTLET*/}
             <Outlet />
           </div>
         </div>
