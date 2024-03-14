@@ -14,7 +14,8 @@ export default function Login() {
   });
 
   const handleInputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name } = e.target;
+    let value = e.target.value.replace(/\D/g, "");
     setAuth({
       ...auth,
       [name]: value,
@@ -24,7 +25,7 @@ export default function Login() {
   const handleLogin = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (auth.document === "" || auth.empPass === "") {
-      return toast.warning("llenar campo documento y/o password");
+      return toast.warning("Please complete all fields to log in.");
     }
     axios
       .post(`${apiBackend}/auth/login`, {
@@ -35,7 +36,7 @@ export default function Login() {
         if (response.status === 201) {
           const token = response.data.AccessToken;
           localStorage.setItem("access_token", token);
-          toast.success("success");
+          toast.success("YEY, you are logged in");
           setTimeout(() => navigate("/admin/wowdesarrollos"), 1300);
         }
       })
@@ -66,7 +67,14 @@ export default function Login() {
               name="document"
               variant="outlined"
               onChange={handleInputOnChange}
+              value={auth.document}
               size="small"
+              sx={{
+                "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                  {
+                    borderColor: "#2074d4",
+                  },
+              }}
             />
           </div>
 
@@ -79,6 +87,12 @@ export default function Login() {
               variant="outlined"
               onChange={handleInputOnChange}
               size="small"
+              sx={{
+                "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                  {
+                    borderColor: "#2074d4",
+                  },
+              }}
             />
           </div>
 
