@@ -1,0 +1,163 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 250px;
+  height: 100vh;
+  background-color: #007f73;
+  padding: 0 1rem;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 4px;
+  overflow-y: auto;
+
+  @media (max-width: 1200px) {
+    display: none;
+  }
+}
+
+/* scroll personalizado */
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 0 1.06rem 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #01756a;
+}
+
+.sidebar__logo h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.sidebar__logo h2 span {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #222;
+}
+
+.sidebar__createuser {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 0.5rem;
+}
+
+.sidebar__createuser li {
+  text-align: center;
+  background-color: #fff;
+  color: #222;
+  width: 100%;
+  padding: .6rem 2rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-size: .7rem;
+  font-weight: 700;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px;
+  cursor: pointer;
+  transition: all .3s ease;
+  margin-bottom: 1rem;
+  list-style: none;
+}
+
+.sidebar__createuser li:hover {
+  background-color: #dfdfdf;
+  color: #222;
+}
+
+.sidebar__categories {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: #222;
+}
+
+
+.sidebar__options {
+  /* background-color: #fff; */
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+.sidebar__options li {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.7rem;
+  border-radius: 3px;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  color: #fff;
+}
+
+.sidebar__options li:hover {
+  background-color: rgba(34, 34, 34, 0.5);
+}
+
+.sidebar__icon {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.sidebar__historytables {
+  /* background-color: #fff; */
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+.sidebar__historytables li {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.7rem;
+  border-radius: 3px;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  color: #fff;
+}
+
+.sidebar__historytables li:hover {
+  background-color: rgba(34, 34, 34, 0.5);
+}
+
+.sidebar__logout {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 20%;
+  margin-left: 0.5rem;
+}
+
+.sidebar__logout li {
+  background-color: #fff;
+  color: #222;
+  width: 100%;
+  padding: 0.7rem 2rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 700;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  list-style: none;
+}
+
+.sidebar__logout li:hover {
+  background-color: #dfdfdf;
+  color: #222;
+}
