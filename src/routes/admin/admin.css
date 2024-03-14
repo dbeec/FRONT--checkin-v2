@@ -9,9 +9,10 @@
   height: 100%;
 }
 
-/* .content {
+.content__information {
   width: 100%;
-  height: 90%;
-  padding: 2rem;
+  height: 90vh;
+  padding: 1rem;
   overflow-y: auto;
-} */
+  box-sizing: border-box;
+}
