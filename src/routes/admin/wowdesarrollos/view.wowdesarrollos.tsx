@@ -10,7 +10,7 @@ export default function WowDesarrollos() {
           text="Find all registered employees of the WOW Desarrollos and their
         accesses."
         />
-        
+
         {/* Tabla */}
         <CollapsibleTable />
       </div>
