@@ -39,7 +39,7 @@
 }
 
 .main__button button {
-  background: #222;
+  background: #2074d4;
   padding: .6rem 4rem ;
   color: #eee;
   border-radius: 4px;
@@ -52,5 +52,5 @@
 }
 
 .main__button button:hover {
-  background: #292929;
+  background: #247fe6;
 }
