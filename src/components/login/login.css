@@ -38,18 +38,19 @@
   margin-top: 1rem;
 }
 
-.main__button a {
+.main__button button {
   background: #222;
   padding: .6rem 4rem ;
   color: #eee;
   border-radius: 4px;
   transition: transform 0.1s;
+  cursor: pointer;
 }
 
-.main__button a:active {
+.main__button button:active {
   transform: translateY(-3px);
 }
 
-.main__button a:hover {
+.main__button button:hover {
   background: #292929;
 }

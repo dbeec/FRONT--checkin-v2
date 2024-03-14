@@ -1,0 +1,1 @@
+export const apiBackend = import.meta.env.VITE_API_BACKEND
