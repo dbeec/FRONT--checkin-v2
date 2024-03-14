@@ -13,6 +13,11 @@
     display: none;
   }
 }
+.sidebarClose {
+  @media (max-width: 1200px) {
+    display: flex;
+}
+}
 
 /* scroll personalizado */
 .sidebar::-webkit-scrollbar {

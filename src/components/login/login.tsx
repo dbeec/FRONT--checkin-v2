@@ -29,7 +29,7 @@ export default function Login() {
           </div>
 
           <div className="main__button">
-            <a href="/admin">Enter</a>
+            <a href="/admin/wowdesarrollos">Enter</a>
           </div>
         </form>
       </div>

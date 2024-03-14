@@ -3,7 +3,13 @@ import companiesData from "./menu";
 import "./sidebar.css";
 import { Link } from "react-router-dom";
 
-export default function Sidebar() {
+export default function Sidebar({
+  open_drawer,
+  set_open,
+}: {
+  open_drawer: boolean;
+  set_open: () => void;
+}) {
   // const route = useRouter();
   const [open, setOpen] = useState<boolean>(false);
 
