@@ -3,6 +3,8 @@ import "./login.css";
 import React, { useState } from "react";
 import { apiBackend } from "../../config/config";
 import axios from "axios";
+import { Toaster, toast } from "sonner";
+
 
 export default function Login() {
   const [auth, setAuth] = useState({
@@ -20,6 +22,9 @@ export default function Login() {
 
   const handleLogin = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    if (auth.document === "" || auth.empPass === "") {
+      return toast.warning("llenar campo documento y/o password",);
+    }
     axios
       .post(`${apiBackend}/auth/login`, {
         document: auth.document,
@@ -29,16 +34,16 @@ export default function Login() {
         if (response.status === 201) {
           const token = response.data.AccessToken;
           localStorage.setItem("access_token", token);
-          alert("success");
+          return toast.success("success");
         }
       })
       .catch((error) => {
-        alert(error.response.data.message);
-        console.log(error);
+        toast.error(error.response.data.message);
       });
   };
   return (
     <>
+    <Toaster richColors expand visibleToasts={1} position="top-right" duration={1000}/>
       <div className="main">
         <form className="main__form">
           <div className="main__titleform">
