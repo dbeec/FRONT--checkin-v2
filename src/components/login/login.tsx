@@ -37,7 +37,7 @@ export default function Login() {
           const token = response.data.AccessToken;
           localStorage.setItem("access_token", token);
           toast.success("YEY, you are logged in");
-          setTimeout(() => navigate("/admin/wowdesarrollos"), 1200);
+          setTimeout(() => navigate("/admin/wowdesarrollos"), 1300);
         }
       })
       .catch((error) => {
