@@ -6,8 +6,6 @@ import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
-
-
 export default function Login() {
   const navigate = useNavigate();
   const [auth, setAuth] = useState({
@@ -26,7 +24,7 @@ export default function Login() {
   const handleLogin = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (auth.document === "" || auth.empPass === "") {
-      return toast.warning("llenar campo documento y/o password",);
+      return toast.warning("llenar campo documento y/o password");
     }
     axios
       .post(`${apiBackend}/auth/login`, {
@@ -38,9 +36,7 @@ export default function Login() {
           const token = response.data.AccessToken;
           localStorage.setItem("access_token", token);
           toast.success("success");
-          setTimeout(() => (
-            navigate("/admin/wowdesarrollos")
-            ),1200)
+          setTimeout(() => navigate("/admin/wowdesarrollos"), 1300);
         }
       })
       .catch((error) => {
@@ -49,7 +45,13 @@ export default function Login() {
   };
   return (
     <>
-    <Toaster richColors expand visibleToasts={1} position="top-right" duration={1000} />
+      <Toaster
+        richColors
+        expand
+        visibleToasts={1}
+        position="top-right"
+        duration={1000}
+      />
       <div className="main">
         <form className="main__form">
           <div className="main__titleform">
