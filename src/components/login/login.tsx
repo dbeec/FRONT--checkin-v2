@@ -47,9 +47,9 @@ export default function Login() {
       })
       .finally(() => {
         // toast.error("Error de conexión en el servidor");
-        toast.promise(delayPromise, {
+        toast.promise(delayPromise(), {
           loading: "espere por favor.",
-          success: "todo bien",
+          // success: "todo bien",
           error: "todo mal",
         });
       });
