@@ -4,7 +4,7 @@
   position: relative;
   width: 250px;
   height: 100vh;
-  background-color: #007f73;
+  background-color: #2074d4;
   padding: 0 1rem;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 4px;
   overflow-y: auto;
@@ -55,7 +55,7 @@
   width: 100%;
   height: 10vh;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid #01756a;
+  border-bottom: 1px solid #1c67bd;
 }
 
 .sidebar__logo h2 {

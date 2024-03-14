@@ -1,12 +1,12 @@
 .header {
-  background-color: #007f73;
+  background-color: #2074d4;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
   width: 100%;
   height: 10vh;
-  border-bottom: 1px solid #01756a;
+  border-bottom: 1px solid #1c67bd;
 }
 
 .header__welcome {
