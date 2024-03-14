@@ -30,10 +30,24 @@
   font-weight: 500;
 }
 
+.header__info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .header__profile {
   background-color: #000;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid #eee;
   cursor: pointer;
+}
+
+.header__menubtn {
+  display: none !important;
+  @media (max-width: 1200px) {
+    align-items: center;
+    display: flex !important;
+  }
 }
