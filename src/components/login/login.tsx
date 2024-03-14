@@ -4,9 +4,12 @@ import React, { useState } from "react";
 import { apiBackend } from "../../config/config";
 import axios from "axios";
 import { Toaster, toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+
 
 
 export default function Login() {
+  const navigate = useNavigate();
   const [auth, setAuth] = useState({
     document: "",
     empPass: "",
@@ -34,7 +37,10 @@ export default function Login() {
         if (response.status === 201) {
           const token = response.data.AccessToken;
           localStorage.setItem("access_token", token);
-          return toast.success("success");
+          toast.success("success");
+          setTimeout(() => (
+            navigate("/admin/wowdesarrollos")
+            ),1200)
         }
       })
       .catch((error) => {
@@ -43,7 +49,7 @@ export default function Login() {
   };
   return (
     <>
-    <Toaster richColors expand visibleToasts={1} position="top-right" duration={1000}/>
+    <Toaster richColors expand visibleToasts={1} position="top-right" duration={1000} />
       <div className="main">
         <form className="main__form">
           <div className="main__titleform">
