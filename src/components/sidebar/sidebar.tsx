@@ -25,6 +25,23 @@ export default function Sidebar({
           <li onClick={() => setOpen(!open)}>create worker</li>
         </div>
 
+        <span className="sidebar__categories">gestión</span>
+
+        <ul className="sidebar__options">
+          {companiesData.gestion.map((item, index) => (
+            <NavLink
+              key={index}
+              className={({ isActive }) => (isActive ? "active" : "")}
+              to={item.url}
+            >
+              <li>
+                <div className="sidebar__icon">{item.icon}</div>
+                <div className="text">{item.name}</div>
+              </li>
+            </NavLink>
+          ))}
+        </ul>
+
         <span className="sidebar__categories">companies</span>
 
         <ul className="sidebar__options">
@@ -50,7 +67,6 @@ export default function Sidebar({
               <li>
                 <div className="sidebar__icon">{item.icon}</div>
                 <div className="text">{item.name}</div>
-
               </li>
             </a>
           ))}
@@ -64,7 +80,6 @@ export default function Sidebar({
               <li>
                 <div className="sidebar__icon">{item.icon}</div>
                 <div className="text">{item.name}</div>
-
               </li>
             </a>
           ))}

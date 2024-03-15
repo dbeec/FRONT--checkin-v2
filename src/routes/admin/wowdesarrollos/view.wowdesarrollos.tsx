@@ -1,11 +1,10 @@
-// import CollapsibleTable from "../../../components/tables/table.wowdesarrollos";
 import TableWowDesarrollos from "../../../components/tables/table.wowdesarrollos";
 import Announcement from "../../../components/utilities/announcements/template";
 
 export default function WowDesarrollos() {
   return (
     <>
-      <div className="announceview">
+      <div className="table_section">
         <Announcement
           title="Total employees of WOW Desarrollos"
           text="Find all registered employees and their recorded attendance"

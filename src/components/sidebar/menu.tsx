@@ -3,9 +3,16 @@ import * as IconTB from "react-icons/tb";
 import * as IconMD from "react-icons/md";
 
 interface Companies {
+  gestion: Gestion[]
   companies: Company[];
   histories: History[];
   externals: Externals[];
+}
+interface Gestion {
+  id: string;
+  name: string;
+  icon: ReactNode;
+  url: string;
 }
 interface Company {
   id: string;
@@ -29,6 +36,15 @@ interface Externals {
 }
 
 const companiesData: Companies = {
+  gestion: [
+    {
+      id: "1",
+      name: "USERS",
+      icon: <IconTB.TbUserFilled />,
+      url: "/admin/users",
+    },
+  ],
+
   companies: [
     {
       id: "1",
@@ -79,6 +95,7 @@ const companiesData: Companies = {
       url: "/admin/motoexplorer",
     },
   ],
+
   histories: [
     {
       id: "1",
@@ -87,6 +104,7 @@ const companiesData: Companies = {
       url: "/admin/history",
     },
   ],
+
   externals: [
     {
       id: "1",

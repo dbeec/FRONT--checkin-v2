@@ -10,14 +10,15 @@ import EtFundacion from "./routes/admin/etfundacion/view.etfundacion";
 // import EtFundacion from './routes/admin/etfundacion/view.etfundacion'
 // import { red,  } from "@mui/material/colors";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Users from "./routes/admin/users/view.users";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#222',
+      main: "#222",
     },
     secondary: {
-      main: '#2074d4',
+      main: "#2074d4",
     },
   },
 });
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
     path: "admin",
     element: <Admin />,
     children: [
+      {
+        path: "users",
+        element: <Users />,
+      },
       {
         path: "wowdesarrollos",
         element: <WowDesarrollos />,
