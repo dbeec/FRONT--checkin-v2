@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 250px;
+  width: 280px;
   height: 100vh;
-  background-color: #fff;
+  background-color: #302c2c;
   padding: 0 1rem;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 4px;
   overflow-y: auto;
@@ -13,7 +13,7 @@
 
   @media (max-width: 1200px) {
     position: absolute;
-    left: -250px; /* Coincide con el ancho del sidebar */
+    left: -280px; /* Coincide con el ancho del sidebar */
   }
 }
 
@@ -56,19 +56,19 @@
   width: 100%;
   height: 7vh;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #423f3f;
 }
 
 .sidebar__logo h2 {
   font-size: 1.8rem;
   font-weight: 800;
-  color: #222;
+  color: #fff;
 }
 
 .sidebar__logo h2 span {
   font-size: 2.5rem;
   font-weight: 900;
-  color: #222;
+  color: #fff;
 }
 
 .sidebar__createuser {
@@ -79,7 +79,7 @@
 
 .sidebar__createuser li {
   text-align: center;
-  background-color: #e4e9f7;
+  background-color: #fff;
   color: #222;
   width: 100%;
   padding: .6rem 2rem;
@@ -103,7 +103,7 @@
   text-transform: uppercase;
   font-weight: 700;
   font-size: 0.7rem;
-  color: #222;
+  color: #ccc;
 }
 
 
@@ -119,12 +119,17 @@
 
 .active {
   border-radius: 3px;
-  background-color: #e4e9f7;
+  background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px;
 }
 
 .active .text {
+  color: #222;
   font-weight: 700;
+}
+
+.active .sidebar__icon {
+  color: #222;
 }
 
 .sidebar__options li {
@@ -136,11 +141,11 @@
   font-weight: 600;
   font-size: 0.8rem;
   transition: all 0.3s ease;
-  color: #222;
+  color: #fff;
 }
 
 .sidebar__options li:hover {
-  background-color: #e4e9f7;
+  background-color: #ffffff09;
 }
 
 .sidebar__icon {
