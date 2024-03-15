@@ -4,7 +4,7 @@
   position: relative;
   width: 250px;
   height: 100vh;
-  background-color: #2074d4;
+  background-color: #fff;
   padding: 0 1rem;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 4px;
   overflow-y: auto;
@@ -56,13 +56,13 @@
   width: 100%;
   height: 7vh;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid #1c67bd;
+  border-bottom: 1px solid #eee;
 }
 
 .sidebar__logo h2 {
   font-size: 1.8rem;
   font-weight: 800;
-  color: #fff;
+  color: #222;
 }
 
 .sidebar__logo h2 span {
@@ -79,7 +79,7 @@
 
 .sidebar__createuser li {
   text-align: center;
-  background-color: #fff;
+  background-color: #e4e9f7;
   color: #222;
   width: 100%;
   padding: .6rem 2rem;
@@ -95,7 +95,7 @@
 }
 
 .sidebar__createuser li:hover {
-  background-color: #dfdfdf;
+  background-color: #e4e9f7;
   color: #222;
 }
 
@@ -118,7 +118,8 @@
 }
 
 .active {
-  background-color: rgba(255, 255, 255, 0.5);
+  color: #eee;
+  background-color: #e4e9f7;
 }
 
 .sidebar__options li {
@@ -130,11 +131,11 @@
   font-weight: 600;
   font-size: 0.8rem;
   transition: all 0.3s ease;
-  color: #fff;
+  color: #222;
 }
 
 .sidebar__options li:hover {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: #e4e9f7;
 }
 
 .sidebar__icon {

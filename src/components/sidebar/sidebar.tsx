@@ -1,7 +1,7 @@
 import { useState } from "react";
 import companiesData from "./menu";
 import "./sidebar.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 export default function Sidebar({
   open_drawer,
@@ -10,12 +10,12 @@ export default function Sidebar({
   open_drawer: boolean;
   set_open: () => void;
 }) {
-  // const route = useRouter();
   const [open, setOpen] = useState<boolean>(false);
+  const { pathname } = useLocation();
 
   return (
     <>
-      <div className={`sidebar ${open_drawer && "sidebar__open"}`}>
+      <div className={`sidebar ${open_drawer ? "sidebar__open" : ""}`}>
         <div className="sidebar__logo">
           <h2>
             Check<span>In</span>
@@ -30,12 +30,16 @@ export default function Sidebar({
 
         <ul className="sidebar__options">
           {companiesData.companies.map((item, index) => (
-            <Link key={index} to={item.url} className="active">
+            <NavLink
+              key={index}
+              className={({isActive}) => isActive ? 'active' : ''}
+              to={item.url}
+            >
               <li>
                 <div className="sidebar__icon">{item.icon}</div>
                 {item.name}
               </li>
-            </Link>
+            </NavLink>
           ))}
         </ul>
 
@@ -66,7 +70,7 @@ export default function Sidebar({
         </ul>
       </div>
       <div
-        className={`sidebar__bg-active ${!open_drawer && "sidebar__bg-disable"}`}
+        className={`sidebar__bg-active ${!open_drawer ? "sidebar__bg-disable" : ""}`}
         onClick={set_open}
       />
     </>
