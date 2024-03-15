@@ -1,7 +1,7 @@
 import { useState } from "react";
 import companiesData from "./menu";
 import "./sidebar.css";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Sidebar({
   open_drawer,
@@ -11,7 +11,6 @@ export default function Sidebar({
   set_open: () => void;
 }) {
   const [open, setOpen] = useState<boolean>(false);
-  const { pathname } = useLocation();
 
   return (
     <>
@@ -32,12 +31,12 @@ export default function Sidebar({
           {companiesData.companies.map((item, index) => (
             <NavLink
               key={index}
-              className={({isActive}) => isActive ? 'active' : ''}
+              className={({ isActive }) => (isActive ? "active" : "")}
               to={item.url}
             >
               <li>
                 <div className="sidebar__icon">{item.icon}</div>
-                {item.name}
+                <div className="text">{item.name}</div>
               </li>
             </NavLink>
           ))}
@@ -50,7 +49,8 @@ export default function Sidebar({
             <a key={index} href={item.url}>
               <li>
                 <div className="sidebar__icon">{item.icon}</div>
-                {item.name}
+                <div className="text">{item.name}</div>
+
               </li>
             </a>
           ))}
@@ -63,14 +63,17 @@ export default function Sidebar({
             <a key={index} href={item.url}>
               <li>
                 <div className="sidebar__icon">{item.icon}</div>
-                {item.name}
+                <div className="text">{item.name}</div>
+
               </li>
             </a>
           ))}
         </ul>
       </div>
       <div
-        className={`sidebar__bg-active ${!open_drawer ? "sidebar__bg-disable" : ""}`}
+        className={`sidebar__bg-active ${
+          !open_drawer ? "sidebar__bg-disable" : ""
+        }`}
         onClick={set_open}
       />
     </>

@@ -118,8 +118,13 @@
 }
 
 .active {
-  color: #eee;
+  border-radius: 3px;
   background-color: #e4e9f7;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px;
+}
+
+.active .text {
+  font-weight: 700;
 }
 
 .sidebar__options li {

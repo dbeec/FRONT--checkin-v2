@@ -25,8 +25,15 @@ type Row = {
 const columnHelper = createMRTColumnHelper();
 
 const columns = [
+  columnHelper.accessor("id", {
+    header: "ID",
+    size: 1,
+  }),
+
   columnHelper.accessor("document", {
     header: "Identification",
+    size: 1,
+
   }),
 
   columnHelper.accessor("name", {
