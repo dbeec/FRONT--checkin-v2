@@ -1,139 +1,304 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import {
+  MaterialReactTable,
+  createMRTColumnHelper,
+  useMaterialReactTable,
+} from "material-react-table";
+import { Box, Button } from "@mui/material";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import { mkConfig, generateCsv, download } from "export-to-csv";
+import { useEffect } from "react";
+import moment from "moment";
+import userData from "./users";
+// import { getAxiosRequest } from "../utils/get-functions";
+import * as IconLU from "react-icons/lu";
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-  price: number
-) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
-      {
-        date: "2020-01-05",
-        customerId: "11091700",
-        amount: 3,
-      },
-      {
-        date: "2020-01-02",
-        customerId: "Anonymous",
-        amount: 1,
-      },
-    ],
-  };
-}
+type Row = {
+  original: any;
+};
 
-function Row(props: { row: ReturnType<typeof createData> }) {
-  const { row } = props;
-  const [open, setOpen] = React.useState(false);
+// interface Employee {
+//   company?: {
+//     name: string;
+//   };
+// }
 
-  return (
-    <React.Fragment>
-      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-        <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
-        <TableCell component="th" scope="row">
-          {row.name}
-        </TableCell>
-        <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow>
-    </React.Fragment>
-  );
-}
+const columnHelper = createMRTColumnHelper();
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0, 3.99),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3, 4.99),
-  createData("Eclair", 262, 16.0, 24, 6.0, 3.79),
-  createData("Cupcake", 305, 3.7, 67, 4.3, 2.5),
-  createData("Gingerbread", 356, 16.0, 49, 3.9, 1.5),
+const columns = [
+  columnHelper.accessor("id", {
+    header: "ID",
+    size: 1,
+  }),
+
+  columnHelper.accessor("document", {
+    header: "Identification",
+    size: 1,
+
+  }),
+
+  columnHelper.accessor("name", {
+    header: "Name",
+    Cell: ({ cell }) => <div>{cell.row.original.name?.toUpperCase()}</div>,
+  }),
+
+  columnHelper.accessor("check_in", {
+    header: "Check IN",
+    size: 10,
+    Cell: ({ cell }) => {
+      const checkinTime = moment(cell.getValue<string>(), "HH:mm:ss");
+      const backgroundColor = checkinTime.isBefore(
+        moment("08:06:00", "HH:mm:ss")
+      )
+        ? "green"
+        : "red";
+
+      return (
+        <Box
+          component="span"
+          sx={{
+            backgroundColor,
+            borderRadius: "0.20rem",
+            color: "#fff",
+            maxWidth: "9ch",
+            p: "0.25rem",
+          }}
+        >
+          {cell.getValue<string>()}
+        </Box>
+      );
+    },
+  }),
+
+  columnHelper.accessor("check_out", {
+    header: "Check OUT",
+    size: 10,
+    Cell: ({ cell }) => {
+      const checkoutTime = moment(cell.getValue<string>(), "HH:mm:ss");
+      const backgroundColor = checkoutTime.isBefore(
+        moment("17:30:00", "HH:mm:ss")
+      )
+        ? "red"
+        : "green";
+
+      return (
+        <Box
+          component="span"
+          sx={{
+            backgroundColor,
+            borderRadius: "0.20rem",
+            color: "#fff",
+            maxWidth: "9ch",
+            p: "0.25rem",
+          }}
+        >
+          {cell.getValue<string>()}
+        </Box>
+      );
+    },
+  }),
+
+  columnHelper.accessor("hoursWorked", {
+    header: "Date",
+    size: 10,
+    Cell: ({ row }) => {
+      const checkinTime = moment(row.original.checkin, "HH:mm:ss");
+      const checkoutTime = moment(row.original.checkout, "HH:mm:ss");
+
+      const adjustedCheckoutTime = checkoutTime.subtract(1, "hour");
+
+      const duration = moment.duration(adjustedCheckoutTime.diff(checkinTime));
+      const hours = String(duration.hours()).padStart(2, "0");
+      const minutes = String(duration.minutes()).padStart(2, "0");
+      const seconds = String(duration.seconds()).padStart(2, "0");
+
+      const formattedHours = `${hours}:${minutes}:${seconds}`;
+
+      return (
+        <Box
+          component="span"
+          sx={{
+            backgroundColor: "gold",
+            borderRadius: "0.20rem",
+            color: "#222",
+            maxWidth: "9ch",
+            p: "0.25rem",
+          }}
+        >
+          {formattedHours}
+        </Box>
+      );
+    },
+  }),
+
+  columnHelper.accessor("pendingTime", {
+    header: "Actions",
+    size: 10,
+    Cell: ({ row }) => {
+      const checkinTime = moment(row.original.checkin, "HH:mm:ss");
+      const checkoutTime = moment(row.original.checkout, "HH:mm:ss");
+
+      const adjustedCheckoutTime = checkoutTime.subtract(1, "hour");
+      const hourss = adjustedCheckoutTime.subtract(8, "h");
+      const min = hourss.subtract(30, "m");
+      const sec = min.subtract(0, "s");
+
+      const duration = moment.duration(sec.diff(checkinTime));
+
+      // Ajuste para formatear correctamente los tiempos negativos
+      const formattedHours =
+        duration.asMilliseconds() < 0
+          ? `-${String(Math.abs(duration.hours())).padStart(2, "0")}:${String(
+              Math.abs(duration.minutes())
+            ).padStart(2, "0")}:${String(Math.abs(duration.seconds())).padStart(
+              2,
+              "0"
+            )}`
+          : `${String(duration.hours()).padStart(2, "0")}:${String(
+              duration.minutes()
+            ).padStart(2, "0")}:${String(duration.seconds()).padStart(2, "0")}`;
+
+      let backgroundColor;
+      if (duration.asMilliseconds() < 0) {
+        backgroundColor = "coral";
+      } else if (duration.asMilliseconds() === 0) {
+        backgroundColor = "";
+      } else {
+        backgroundColor = "#60b1f3";
+      }
+
+      return (
+        <Box
+          component="span"
+          sx={{
+            backgroundColor,
+            borderRadius: "0.20rem",
+            color: "#222",
+            maxWidth: "9ch",
+            p: "0.25rem",
+          }}
+        >
+          {formattedHours}
+        </Box>
+      );
+    },
+  }),
 ];
 
-export default function CollapsibleTable() {
+const csvConfig = mkConfig({
+  fieldSeparator: ",",
+  decimalSeparator: ".",
+  useKeysAsHeaders: true,
+});
+
+const TableWowDesarrollos = () => {
+  // const [dataUser, setDataUser] = useState<any>([]);
+
+  // Funcion para traer usuarios de la bd
+  // const getEmployees = async () => {
+  //   try {
+  //     const res = await getAxiosRequest("/employees");
+  //     const employeesWithCompany = res.map((employee: Employee) => ({
+  //       ...employee,
+  //       company: employee.company?.name,
+  //     }));
+  //     setDataUser(employeesWithCompany);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const handleExportRows = (rows: Row[]) => {
+    const rowData = rows.map((row) => row.original);
+    const csv = generateCsv(csvConfig)(rowData);
+    download(csvConfig)(csv);
+  };
+
+  const handleExportData = () => {
+    const csv = generateCsv(csvConfig)(userData);
+    download(csvConfig)(csv);
+  };
+
+  const table = useMaterialReactTable({
+    columns,
+    data: userData || [],
+    enableRowSelection: true,
+    // columnFilterDisplayMode: "popover",
+    paginationDisplayMode: "pages",
+    positionToolbarAlertBanner: "bottom",
+    renderTopToolbarCustomActions: ({ table }) => (
+      <Box
+        sx={{
+          display: "flex",
+          gap: "16px",
+          padding: "8px",
+          flexWrap: "wrap",
+        }}
+      >
+        <Button
+          sx={{ color: "#222", fontSize: "1.4rem" }}
+          // onClick={getEmployees}
+        >
+          <IconLU.LuRefreshCcw />
+        </Button>
+        <Button
+          //export all data that is currently in the table (ignore pagination, sorting, filtering, etc.)
+          onClick={handleExportData}
+          startIcon={<FileDownloadIcon />}
+          sx={{ color: "#222" }}
+        >
+          Export All Data
+        </Button>
+        <Button
+          disabled={table.getPrePaginationRowModel().rows.length === 0}
+          //export all rows, including from the next page, (still respects filtering and sorting)
+          onClick={() =>
+            handleExportRows(table.getPrePaginationRowModel().rows)
+          }
+          startIcon={<FileDownloadIcon />}
+          sx={{ color: "#222" }}
+        >
+          Export All Rows
+        </Button>
+        <Button
+          disabled={table.getRowModel().rows.length === 0}
+          //export all rows as seen on the screen (respects pagination, sorting, filtering, etc.)
+          onClick={() => handleExportRows(table.getRowModel().rows)}
+          startIcon={<FileDownloadIcon />}
+          sx={{ color: "#222" }}
+        >
+          Export Page Rows
+        </Button>
+        <Button
+          disabled={
+            !table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
+          }
+          //only export selected rows
+          onClick={() => handleExportRows(table.getSelectedRowModel().rows)}
+          startIcon={<FileDownloadIcon />}
+          sx={{ color: "#222" }}
+        >
+          Export Selected Rows
+        </Button>
+      </Box>
+    ),
+  });
+
+  useEffect(() => {
+    // getEmployees();
+    const intervalId = setInterval(() => {
+      // clearInterval(intervalId);
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <MaterialReactTable table={table} />;
+    </>
   );
-}
+};
+
+export default TableWowDesarrollos;

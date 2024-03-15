@@ -38,7 +38,7 @@ img {
   object-fit: cover;
 }
 
-ul {
+ul, li {
   list-style: none;
 }
 

@@ -5,7 +5,7 @@ import { apiBackend } from "../../config/config";
 import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-// import delayPromise from "../utilities/sooner/messages";
+import delayPromise from "../utilities/sooner/messages";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -57,6 +57,14 @@ export default function Login() {
           });
         }
         toast.error(error.response.data.message);
+      })
+      .finally(() => {
+        // toast.error("Error de conexión en el servidor");
+        toast.promise(delayPromise(), {
+          loading: "espere por favor.",
+          // success: "todo bien",
+          error: "todo mal",
+        });
       });
   };
   return (
