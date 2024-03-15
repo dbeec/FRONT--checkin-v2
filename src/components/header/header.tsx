@@ -26,7 +26,7 @@ export default function Header({ set_open }: { set_open: () => void }) {
             <li>
               Welcome back, <span className="header__name">Johan Díaz</span>
             </li>
-            <span>{date.format("ddd, LL")}</span>
+            <span className="header__date">{date.format("ddd, LL")}</span>
           </div>
         </div>
 

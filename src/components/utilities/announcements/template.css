@@ -7,11 +7,13 @@
   color: rgba(58, 53, 65, 0.87);
   font-weight: 400;
   line-height: 1.4;
+  letter-spacing: .2px;
 }
 
 .content__template p {
   line-height: 1.5;
   color: rgba(58, 53, 65, 0.6);
   font-weight: 400;
-  font-size: 0.775rem;
+  font-size: 0.85rem;
+  /* letter-spacing: .2px; */
 }

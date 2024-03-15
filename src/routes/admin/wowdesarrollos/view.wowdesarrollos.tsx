@@ -1,4 +1,5 @@
-import CollapsibleTable from "../../../components/tables/table.wowdesarrollos";
+// import CollapsibleTable from "../../../components/tables/table.wowdesarrollos";
+import TableWowDesarrollos from "../../../components/tables/table.wowdesarrollos";
 import Announcement from "../../../components/utilities/announcements/template";
 
 export default function WowDesarrollos() {
@@ -7,12 +8,11 @@ export default function WowDesarrollos() {
       <div className="announceview">
         <Announcement
           title="Total employees of WOW Desarrollos"
-          text="Find all registered employees of the WOW Desarrollos and their
-        accesses."
+          text="Find all registered employees and their recorded attendance"
         />
 
         {/* Tabla */}
-        <CollapsibleTable />
+        <TableWowDesarrollos />
       </div>
     </>
   );

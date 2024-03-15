@@ -9,6 +9,7 @@
   box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 4px;
   overflow-y: auto;
   transition: all .2s ease-in-out;
+  z-index: 3;
 
   @media (max-width: 1200px) {
     position: absolute;
@@ -116,6 +117,10 @@
   margin-left: 0.5rem;
 }
 
+.active {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
 .sidebar__options li {
   display: flex;
   align-items: center;
@@ -129,39 +134,13 @@
 }
 
 .sidebar__options li:hover {
-  background-color: rgba(34, 34, 34, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .sidebar__icon {
   display: flex;
   align-items: center;
   font-size: 1.2rem;
-}
-
-.sidebar__historytables {
-  /* background-color: #fff; */
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  margin-top: 0.8rem;
-  margin-bottom: 0.8rem;
-  margin-left: 0.5rem;
-}
-
-.sidebar__historytables li {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem 0.7rem;
-  border-radius: 3px;
-  gap: 0.5rem;
-  font-weight: 600;
-  font-size: 0.8rem;
-  transition: all 0.3s ease;
-  color: #fff;
-}
-
-.sidebar__historytables li:hover {
-  background-color: rgba(34, 34, 34, 0.5);
 }
 
 .sidebar__logout {
@@ -171,7 +150,7 @@
   margin-left: 0.5rem;
 }
 
-.sidebar__logout li {
+/* .sidebar__logout li {
   background-color: #fff;
   color: #222;
   width: 100%;
@@ -187,6 +166,6 @@
 }
 
 .sidebar__logout li:hover {
-  background-color: #dfdfdf;
+  background-color: #fff;
   color: #222;
-}
+} */

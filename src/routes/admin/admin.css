@@ -23,7 +23,7 @@
 }
 
 .content__information::-webkit-scrollbar-thumb {
-  background: #2074d4;
+  background: #222;
   border-radius: 5px;
   border-right: solid 2px #fff;
 }

@@ -30,7 +30,7 @@ export default function Sidebar({
 
         <ul className="sidebar__options">
           {companiesData.companies.map((item, index) => (
-            <Link key={index} to={item.url}>
+            <Link key={index} to={item.url} className="active">
               <li>
                 <div className="sidebar__icon">{item.icon}</div>
                 {item.name}
@@ -41,7 +41,7 @@ export default function Sidebar({
 
         <span className="sidebar__categories">history table</span>
 
-        <ul className="sidebar__historytables">
+        <ul className="sidebar__options">
           {companiesData.histories.map((item, index) => (
             <a key={index} href={item.url}>
               <li>
@@ -54,7 +54,7 @@ export default function Sidebar({
 
         <span className="sidebar__categories">externals</span>
 
-        <ul className="sidebar__historytables">
+        <ul className="sidebar__options">
           {companiesData.externals.map((item, index) => (
             <a key={index} href={item.url}>
               <li>
