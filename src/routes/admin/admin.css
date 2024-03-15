@@ -16,6 +16,7 @@
   padding: 1rem 2rem;
   overflow-y: auto;
   box-sizing: border-box;
+  background-color: #fafafa;
 }
 
 .content__information::-webkit-scrollbar {
