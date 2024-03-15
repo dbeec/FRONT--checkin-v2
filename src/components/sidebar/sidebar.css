@@ -119,18 +119,10 @@
 
 .active {
   border-radius: 3px;
-  background-color: #fff;
+  background-color: #ffffff09;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px;
 }
 
-.active .text {
-  color: #222;
-  font-weight: 700;
-}
-
-.active .sidebar__icon {
-  color: #222;
-}
 
 .sidebar__options li {
   display: flex;

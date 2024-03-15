@@ -1,7 +1,6 @@
-import { useState } from "react";
 import companiesData from "./menu";
-import "./sidebar.css";
 import { NavLink } from "react-router-dom";
+import "./sidebar.css";
 
 export default function Sidebar({
   open_drawer,
@@ -10,7 +9,6 @@ export default function Sidebar({
   open_drawer: boolean;
   set_open: () => void;
 }) {
-  const [open, setOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -19,10 +17,6 @@ export default function Sidebar({
           <h2>
             Check<span>In</span>
           </h2>
-        </div>
-
-        <div className="sidebar__createuser">
-          <li onClick={() => setOpen(!open)}>create worker</li>
         </div>
 
         <span className="sidebar__categories">gestión</span>

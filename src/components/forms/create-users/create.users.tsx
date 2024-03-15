@@ -48,7 +48,7 @@ export default function CreateNewUser() {
 
         <TextField
           id="outlined-basic"
-          label="Name"
+          label="Full Name"
           name="name"
           variant="outlined"
           size="small"
