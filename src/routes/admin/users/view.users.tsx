@@ -1,7 +1,6 @@
 import CreateNewUser from "../../../components/forms/create-users/create.users";
 import TableWowDesarrollos from "../../../components/tables/table.wowdesarrollos";
 import Announcement from "../../../components/utilities/announcements/template";
-import "./view.users.css"
 
 export default function Users() {
   return (
@@ -18,8 +17,8 @@ export default function Users() {
 
       {/* Sección de la tabla para los usuarios registrados */}
       <Announcement
-        title="Users Management"
-        text="Create employees for your company"
+        title="List of employees"
+        text="Total number of employees of the company"
       />
       <div>
         {/* Tabla */}
