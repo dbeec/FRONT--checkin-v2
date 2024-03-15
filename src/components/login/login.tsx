@@ -43,6 +43,19 @@ export default function Login() {
         }
       })
       .catch((error) => {
+        if (error.request) {
+          const promise = () =>
+            new Promise((_, reject) =>
+              setTimeout(() => reject({ name: "Sonner" }), 2000)
+            );
+          toast.promise(promise, {
+            loading: "Loading...",
+            success: (data: any) => {
+              return `${data.name} toast has been added`;
+            },
+            error: "Error",
+          });
+        }
         toast.error(error.response.data.message);
       })
       .finally(() => {
