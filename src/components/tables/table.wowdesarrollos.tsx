@@ -3,7 +3,7 @@ import {
   createMRTColumnHelper,
   useMaterialReactTable,
 } from "material-react-table";
-import { Box, Button, Tooltip } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { mkConfig, generateCsv, download } from "export-to-csv";
 import { useEffect } from "react";
@@ -25,11 +25,6 @@ type Row = {
 const columnHelper = createMRTColumnHelper();
 
 const columns = [
-  columnHelper.accessor("id", {
-    header: "#",
-    size: 1,
-  }),
-
   columnHelper.accessor("document", {
     header: "Identification",
     size: 1,
@@ -38,6 +33,19 @@ const columns = [
   columnHelper.accessor("name", {
     header: "Name",
     Cell: ({ cell }) => <div>{cell.row.original.name?.toUpperCase()}</div>,
+  }),
+  
+  columnHelper.accessor("date", {
+    header: "Date",
+    size: 10,
+    Cell: ({ row }) => {
+
+      return (
+        <>
+        <p>waiting...</p>
+        </>
+      );
+    },
   }),
 
   columnHelper.accessor("check_in", {
@@ -95,92 +103,6 @@ const columns = [
       );
     },
   }),
-
-  columnHelper.accessor("hoursWorked", {
-    header: "Date",
-    size: 10,
-    Cell: ({ row }) => {
-      const checkinTime = moment(row.original.checkin, "HH:mm:ss");
-      const checkoutTime = moment(row.original.checkout, "HH:mm:ss");
-
-      const adjustedCheckoutTime = checkoutTime.subtract(1, "hour");
-
-      const duration = moment.duration(adjustedCheckoutTime.diff(checkinTime));
-      const hours = String(duration.hours()).padStart(2, "0");
-      const minutes = String(duration.minutes()).padStart(2, "0");
-      const seconds = String(duration.seconds()).padStart(2, "0");
-
-      const formattedHours = `${hours}:${minutes}:${seconds}`;
-
-      return (
-        <Box
-          component="span"
-          sx={{
-            backgroundColor: "gold",
-            borderRadius: "0.20rem",
-            color: "#222",
-            maxWidth: "9ch",
-            p: "0.25rem",
-          }}
-        >
-          {formattedHours}
-        </Box>
-      );
-    },
-  }),
-
-  columnHelper.accessor("pendingTime", {
-    header: "Actions",
-    size: 10,
-    Cell: ({ row }) => {
-      const checkinTime = moment(row.original.checkin, "HH:mm:ss");
-      const checkoutTime = moment(row.original.checkout, "HH:mm:ss");
-
-      const adjustedCheckoutTime = checkoutTime.subtract(1, "hour");
-      const hourss = adjustedCheckoutTime.subtract(8, "h");
-      const min = hourss.subtract(30, "m");
-      const sec = min.subtract(0, "s");
-
-      const duration = moment.duration(sec.diff(checkinTime));
-
-      // Ajuste para formatear correctamente los tiempos negativos
-      const formattedHours =
-        duration.asMilliseconds() < 0
-          ? `-${String(Math.abs(duration.hours())).padStart(2, "0")}:${String(
-              Math.abs(duration.minutes())
-            ).padStart(2, "0")}:${String(Math.abs(duration.seconds())).padStart(
-              2,
-              "0"
-            )}`
-          : `${String(duration.hours()).padStart(2, "0")}:${String(
-              duration.minutes()
-            ).padStart(2, "0")}:${String(duration.seconds()).padStart(2, "0")}`;
-
-      let backgroundColor;
-      if (duration.asMilliseconds() < 0) {
-        backgroundColor = "coral";
-      } else if (duration.asMilliseconds() === 0) {
-        backgroundColor = "";
-      } else {
-        backgroundColor = "#60b1f3";
-      }
-
-      return (
-        <Box
-          component="span"
-          sx={{
-            backgroundColor,
-            borderRadius: "0.20rem",
-            color: "#222",
-            maxWidth: "9ch",
-            p: "0.25rem",
-          }}
-        >
-          {formattedHours}
-        </Box>
-      );
-    },
-  }),
 ];
 
 const csvConfig = mkConfig({
@@ -221,14 +143,20 @@ const TableWowDesarrollos = () => {
     columns,
     data: userData || [],
     enableRowSelection: true,
-    // columnFilterDisplayMode: "popover",
     paginationDisplayMode: "pages",
     positionToolbarAlertBanner: "bottom",
+    enableColumnFilters: false,
+    initialState: { density: "compact" },
+    enableDensityToggle: false,
+    enableHiding: false,
+    enableFullScreenToggle: false,
+    enableClickToCopy: true,
+    enableRowNumbers: true,
     renderTopToolbarCustomActions: ({ table }) => (
       <Box
         sx={{
           display: "flex",
-          gap: "16px",
+          gap: ".6rem",
           padding: "8px",
           flexWrap: "wrap",
         }}
@@ -257,7 +185,7 @@ const TableWowDesarrollos = () => {
           //only export selected rows
           onClick={() => handleExportRows(table.getSelectedRowModel().rows)}
           startIcon={<FileDownloadIcon />}
-          sx={{ color: "#fff"}}
+          sx={{ color: "#fff" }}
         >
           Export Selected Rows
         </Button>
