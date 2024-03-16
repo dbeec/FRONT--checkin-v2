@@ -24,7 +24,7 @@ export default function Header({ set_open }: { set_open: () => void }) {
           </IconButton>
           <div className="header__welcome">
             <li>
-              Welcome back, <span className="header__name">Johan Díaz</span>
+              Welcome back, <span className="header__name">Admin</span>
             </li>
             <span className="header__date">{date.format("ddd, LL")}</span>
           </div>

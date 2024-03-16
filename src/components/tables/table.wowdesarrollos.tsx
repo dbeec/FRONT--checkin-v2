@@ -3,12 +3,12 @@ import {
   createMRTColumnHelper,
   useMaterialReactTable,
 } from "material-react-table";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Tooltip } from "@mui/material";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { mkConfig, generateCsv, download } from "export-to-csv";
 import { useEffect } from "react";
 import moment from "moment";
-import userData from "./users";
+import userData from "./datatable.wow";
 // import { getAxiosRequest } from "../utils/get-functions";
 import * as IconLU from "react-icons/lu";
 
@@ -26,14 +26,13 @@ const columnHelper = createMRTColumnHelper();
 
 const columns = [
   columnHelper.accessor("id", {
-    header: "ID",
+    header: "#",
     size: 1,
   }),
 
   columnHelper.accessor("document", {
     header: "Identification",
     size: 1,
-
   }),
 
   columnHelper.accessor("name", {
@@ -235,47 +234,30 @@ const TableWowDesarrollos = () => {
         }}
       >
         <Button
-          sx={{ color: "#222", fontSize: "1.4rem" }}
+          variant="contained"
+          sx={{ color: "#fff", fontSize: "1.29rem" }}
           // onClick={getEmployees}
         >
           <IconLU.LuRefreshCcw />
         </Button>
         <Button
+          variant="contained"
           //export all data that is currently in the table (ignore pagination, sorting, filtering, etc.)
           onClick={handleExportData}
           startIcon={<FileDownloadIcon />}
-          sx={{ color: "#222" }}
+          sx={{ color: "#fff" }}
         >
-          Export All Data
+          Export
         </Button>
         <Button
-          disabled={table.getPrePaginationRowModel().rows.length === 0}
-          //export all rows, including from the next page, (still respects filtering and sorting)
-          onClick={() =>
-            handleExportRows(table.getPrePaginationRowModel().rows)
-          }
-          startIcon={<FileDownloadIcon />}
-          sx={{ color: "#222" }}
-        >
-          Export All Rows
-        </Button>
-        <Button
-          disabled={table.getRowModel().rows.length === 0}
-          //export all rows as seen on the screen (respects pagination, sorting, filtering, etc.)
-          onClick={() => handleExportRows(table.getRowModel().rows)}
-          startIcon={<FileDownloadIcon />}
-          sx={{ color: "#222" }}
-        >
-          Export Page Rows
-        </Button>
-        <Button
+          variant="contained"
           disabled={
             !table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
           }
           //only export selected rows
           onClick={() => handleExportRows(table.getSelectedRowModel().rows)}
           startIcon={<FileDownloadIcon />}
-          sx={{ color: "#222" }}
+          sx={{ color: "#fff"}}
         >
           Export Selected Rows
         </Button>

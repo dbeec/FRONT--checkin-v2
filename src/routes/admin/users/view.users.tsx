@@ -20,7 +20,7 @@ export default function Users() {
         title="List of employees"
         text="Total number of employees of the company"
       />
-      <div>
+      <div style={{ display: "grid" }}>
         {/* Tabla */}
         <TableWowDesarrollos />
       </div>

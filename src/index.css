@@ -11,7 +11,7 @@
 html {
   font-size: 1rem;
   font-family: "Urbanist", sans-serif;
-  overflow: auto;
+  /* overflow: auto; */
   scroll-behavior: smooth;
 }
 

@@ -39,7 +39,7 @@ const companiesData: Companies = {
   gestion: [
     {
       id: "1",
-      name: "USERS",
+      name: "users",
       icon: <IconTB.TbUserFilled />,
       url: "/admin/users",
     },
@@ -48,49 +48,49 @@ const companiesData: Companies = {
   companies: [
     {
       id: "1",
-      name: "WOW DESARROLLOS",
+      name: "wow desarrollos",
       icon: <IconTB.TbTableFilled />,
       url: "wowdesarrollos"
     },
     {
       id: "2",
-      name: "FUNDACION ET",
+      name: "fundacion et",
       icon: <IconTB.TbTableFilled />,
       url: "etfundacion",
     },
     {
       id: "3",
-      name: "CAE EMPRESARIAL",
+      name: "cae empresarial",
       icon: <IconTB.TbTableFilled />,
       url: "/admin/cae",
     },
     {
       id: "4",
-      name: "PORCIFENIX",
+      name: "porcifenix",
       icon: <IconTB.TbTableFilled />,
       url: "/admin/porcifenix",
     },
     {
       id: "5",
-      name: "LEYPAL",
+      name: "leypal",
       icon: <IconTB.TbTableFilled />,
       url: "/admin/leypal",
     },
     {
       id: "6",
-      name: "COPHUMANA",
+      name: "coophumana",
       icon: <IconTB.TbTableFilled />,
       url: "/admin/cophumana",
     },
     {
       id: "7",
-      name: "OSSADO",
+      name: "ossado",
       icon: <IconTB.TbTableFilled />,
       url: "/admin/ossado",
     },
     {
       id: "8",
-      name: "MOTO EXPLORER",
+      name: "moto explorer",
       icon: <IconTB.TbTableFilled />,
       url: "/admin/motoexplorer",
     },
@@ -99,7 +99,7 @@ const companiesData: Companies = {
   histories: [
     {
       id: "1",
-      name: "HISTORIES",
+      name: "histories",
       icon: <IconMD.MdHistory />,
       url: "/admin/history",
     },
@@ -108,7 +108,7 @@ const companiesData: Companies = {
   externals: [
     {
       id: "1",
-      name: "EXTERNALS",
+      name: "externals",
       icon: <IconTB.TbExternalLink />,
       url: "/admin/externals",
     },
