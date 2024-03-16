@@ -2,31 +2,31 @@
 import {
   Avatar,
   Box,
-  Divider,
   IconButton,
   ListItemIcon,
   Menu,
   MenuItem,
   Tooltip,
-  Typography,
 } from "@mui/material";
 import "./header.css";
 import { MdMenu } from "react-icons/md";
 import moment from "moment";
 import React from "react";
 import { Logout, Settings } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 export default function Header({ set_open }: { set_open: () => void }) {
   const date = moment();
+  const navigate = useNavigate();
 
   // funcion para cerrar sesion
-  // const logoutSession = () => {
-  //   localStorage.removeItem("access token");
-  //   alert("YEPP, You have successfully logged out! 😶‍🌫️");
-  //   setTimeout(() => {
-  //     // route.push("/");
-  //   }, 2000);
-  // };
+  const logoutSession = () => {
+    localStorage.removeItem("access token");
+    // alert("YEPP, You have successfully logged out! 😶‍🌫️");
+    setTimeout(() => {
+      navigate("/");
+    }, 500);
+  };
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -109,7 +109,7 @@ export default function Header({ set_open }: { set_open: () => void }) {
             </ListItemIcon>
             Settings
           </MenuItem>
-          <MenuItem onClick={handleClose} style={{ fontSize: ".9rem" }}>
+          <MenuItem onClick={logoutSession} style={{ fontSize: ".9rem" }}>
             <ListItemIcon>
               <Logout style={{ fontSize: "1.2rem" }} />
             </ListItemIcon>
