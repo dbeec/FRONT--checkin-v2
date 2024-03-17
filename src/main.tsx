@@ -7,10 +7,9 @@ import Root from "./routes/root";
 import Admin from "./routes/admin/admin";
 import WowDesarrollos from "./routes/admin/wowdesarrollos/view.wowdesarrollos";
 import EtFundacion from "./routes/admin/etfundacion/view.etfundacion";
-// import EtFundacion from './routes/admin/etfundacion/view.etfundacion'
-// import { red,  } from "@mui/material/colors";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Users from "./routes/admin/users/view.users";
+// import Protected from "./protected-route";
 
 const theme = createTheme({
   palette: {
@@ -22,6 +21,7 @@ const theme = createTheme({
     },
   },
 });
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -50,7 +50,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
+      {/* <Protected> */}
+        <RouterProvider router={router} />
+      {/* </Protected> */}
     </ThemeProvider>
   </React.StrictMode>
 );
