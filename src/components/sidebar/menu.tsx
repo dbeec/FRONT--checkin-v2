@@ -99,7 +99,7 @@ const companiesData: Companies = {
   histories: [
     {
       id: "1",
-      name: "histories",
+      name: "history",
       icon: <IconMD.MdHistory />,
       url: "/admin/history",
     },

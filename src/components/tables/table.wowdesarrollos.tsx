@@ -38,14 +38,6 @@ const columns = [
   columnHelper.accessor("date", {
     header: "Date",
     size: 10,
-    Cell: ({ row }) => {
-
-      return (
-        <>
-        <p>waiting...</p>
-        </>
-      );
-    },
   }),
 
   columnHelper.accessor("check_in", {
@@ -111,7 +103,7 @@ const csvConfig = mkConfig({
   useKeysAsHeaders: true,
 });
 
-const TableWowDesarrollos = () => {
+const WowDesarrollosTable = () => {
   // const [dataUser, setDataUser] = useState<any>([]);
 
   // Funcion para traer usuarios de la bd
@@ -211,4 +203,4 @@ const TableWowDesarrollos = () => {
   );
 };
 
-export default TableWowDesarrollos;
+export default WowDesarrollosTable;

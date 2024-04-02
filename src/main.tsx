@@ -9,6 +9,7 @@ import WowDesarrollos from "./routes/admin/wowdesarrollos/view.wowdesarrollos";
 import EtFundacion from "./routes/admin/etfundacion/view.etfundacion";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Users from "./routes/admin/users/view.users";
+import History from "./routes/admin/history/view.history";
 // import Protected from "./protected-route";
 
 const theme = createTheme({
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
         path: "etfundacion",
         element: <EtFundacion />,
       },
+      {
+        path: "history",
+        element: <History/>
+      }
     ],
   },
 ]);

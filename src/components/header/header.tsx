@@ -42,7 +42,7 @@ export default function Header({ set_open }: { set_open: () => void }) {
       <div className="header">
         <div className="header__info">
           <IconButton onClick={set_open} className="header__menubtn">
-            <MdMenu color="#fff" />
+            <MdMenu color="#222" />
           </IconButton>
           <div className="header__welcome">
             <li>

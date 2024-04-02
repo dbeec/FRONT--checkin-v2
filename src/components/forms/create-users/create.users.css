@@ -4,6 +4,20 @@
   gap: 1rem;
   margin-bottom: 2rem;
   padding: 1rem;
+  box-sizing: border-box;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    gap: .5rem;
+  }
+}
+
+.with {
+  width: 35%;
+
+  @media (max-width: 1000px) {
+    width: auto;
+  }
 }
 
 .button {
@@ -13,7 +27,7 @@
 
 .button button {
   background: #302c2c;
-  padding: .6rem 2rem ;
+  padding: .6rem 2rem;
   color: #eee;
   border-radius: 3px;
   transition: transform 0.1s;
