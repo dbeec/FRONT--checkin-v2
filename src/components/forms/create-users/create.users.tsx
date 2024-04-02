@@ -1,37 +1,27 @@
 import {
-  FormControl,
   MenuItem,
-  Select,
   TextField,
-  SelectChangeEvent,
 } from "@mui/material";
-import InputLabel from "@mui/material/InputLabel";
 import "./create.users.css";
-import React from "react";
+import documentType from "./data";
 
 export default function CreateNewUser() {
-  const [documentType, setDocumentType] = React.useState("");
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setDocumentType(event.target.value);
-  };
   return (
     <>
       <form className="form">
-        <FormControl sx={{ minWidth: 120 }} size="small">
-          <InputLabel id="demo-select-small-label">Document type</InputLabel>
-          <Select
-            labelId="demo-select-small-label"
-            id="demo-select-small"
-            value={documentType}
-            label="Document Type"
-            onChange={handleChange}
-          >
-            <MenuItem value={10}>CC</MenuItem>
-            <MenuItem value={20}>TI</MenuItem>
-            <MenuItem value={30}>CE</MenuItem>
-          </Select>
-        </FormControl>
+        <TextField
+          id="outlined-select-currency"
+          select
+          label="Document type"
+          size="small"
+          sx={{ width: 100 }}
+        >
+          {documentType.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
 
         <TextField
           id="outlined-basic"

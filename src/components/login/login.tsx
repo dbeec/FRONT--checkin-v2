@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { IconButton, InputAdornment, TextField } from "@mui/material";
 import "./login.css";
 import React, { useState } from "react";
 import { apiBackend } from "../../config/config";
@@ -6,6 +6,7 @@ import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import delayPromise from "../utilities/sooner/messages";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -13,7 +14,6 @@ export default function Login() {
     document: "",
     empPass: "",
   });
-
   const handleInputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     // let value = e.target.value.replace(/\D/g, "");
@@ -67,6 +67,15 @@ export default function Login() {
         });
       });
   };
+
+  // Función para ocultar la contraseña
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+  // <--->
+
   return (
     <>
       <Toaster
@@ -94,9 +103,9 @@ export default function Login() {
               size="small"
               sx={{
                 "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                  {
-                    borderColor: "#2074d4",
-                  },
+                {
+                  borderColor: "#2074d4",
+                },
               }}
             />
           </div>
@@ -105,16 +114,29 @@ export default function Login() {
             <TextField
               id="outlined-basic"
               label="Password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               name="empPass"
               variant="outlined"
               onChange={handleInputOnChange}
               size="small"
               sx={{
-                "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                  {
-                    borderColor: "#2074d4",
-                  },
+                "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "#2074d4",
+                },
+              }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
               }}
             />
           </div>
