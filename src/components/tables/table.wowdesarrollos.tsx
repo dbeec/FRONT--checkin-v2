@@ -53,7 +53,7 @@ const csvConfig = mkConfig({
 
 const WowDesarrollosTable = () => {
   const [dataUser, setDataUser] = useState<any>([]);
-
+  
   // Funcion para traer usuarios de la bd
   const getEmployees = async () => {
     try {
@@ -100,7 +100,7 @@ const WowDesarrollosTable = () => {
         <Button
           variant="contained"
           sx={{ color: "#fff", fontSize: "1.29rem" }}
-        // onClick={getEmployees}
+          onClick={getEmployees}
         >
           <IconLU.LuRefreshCcw />
         </Button>
