@@ -95,9 +95,11 @@ export default function Login() {
           <div className="main__contentinputs">
             <TextField
               id="outlined-basic"
-              label="Document"
-              name="document"
+              label="Email"
+              type="email"
+              name="email"
               variant="outlined"
+              autoFocus
               onChange={handleInputOnChange}
               // value={auth.document}
               size="small"
