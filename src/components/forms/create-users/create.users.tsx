@@ -45,7 +45,6 @@ export default function CreateNewUser() {
       try {
         const responseTypes = await axios.get(`${apiBackend}/document-types`)
         setDocumentTypes(responseTypes.data)
-        console.log("pruebaaa❤️❤️❤️", responseTypes.data);
       } catch (error) {
         console.error(error);
       }
