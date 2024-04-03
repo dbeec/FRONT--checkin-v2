@@ -12,8 +12,8 @@ export default function History() {
         title="Total employees registered"
         text="Find all registered users and review their history"
       />
-      <div style={{ display: 'grid' }}>
         {/* Tabla */}
+      <div style={{ display: 'grid'}}>
         <HistoryTable />
       </div>
     </>

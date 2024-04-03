@@ -1,249 +1,150 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import SaveIcon from '@mui/icons-material/Save';
-import CancelIcon from '@mui/icons-material/Close';
 import {
-  GridRowsProp,
-  GridRowModesModel,
-  GridRowModes,
-  DataGrid,
-  GridColDef,
-  GridToolbarContainer,
-  GridActionsCellItem,
-  GridEventListener,
-  GridRowId,
-  GridRowModel,
-  GridRowEditStopReasons,
-  GridSlots,
-} from '@mui/x-data-grid';
-import {
-  randomCreatedDate,
-  randomTraderName,
-  randomId,
-  randomArrayItem,
-} from '@mui/x-data-grid-generator';
+  MaterialReactTable,
+  createMRTColumnHelper,
+  useMaterialReactTable,
+} from "material-react-table";
+import { Box, Button } from "@mui/material";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import { mkConfig, generateCsv, download } from "export-to-csv";
+import { useEffect } from "react";
+import userData from "./datatable.wow";
+import * as IconLU from "react-icons/lu";
 
-const roles = ['Market', 'Finance', 'Development'];
-const randomRole = () => {
-  return randomArrayItem(roles);
+type Row = {
+  original: any;
 };
 
-const initialRows: GridRowsProp = [
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 25,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 36,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 19,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 28,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 23,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
+const columnHelper = createMRTColumnHelper();
+
+const columns = [
+  columnHelper.accessor("document", {
+    header: "Document Type",
+    size: 1,
+  }),
+
+  columnHelper.accessor("document", {
+    header: "Identification",
+    size: 1,
+  }),
+
+  columnHelper.accessor("name", {
+    header: "Name",
+    Cell: ({ cell }) => <div>{cell.row.original.name?.toUpperCase()}</div>,
+  }),
+  
+  columnHelper.accessor("date", {
+    header: "Email",
+    size: 10,
+  }),
+
+  columnHelper.accessor("date", {
+    header: "Date",
+    size: 10,
+  }),
 ];
 
-interface EditToolbarProps {
-  setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
-  setRowModesModel: (
-    newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
-  ) => void;
-}
-
-function EditToolbar(props: EditToolbarProps) {
-  const { setRows, setRowModesModel } = props;
-
-  const handleClick = () => {
-    const id = randomId();
-    setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
-    setRowModesModel((oldModel) => ({
-      ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
-    }));
-  };
-
-  return (
-    <GridToolbarContainer>
-      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add record
-      </Button>
-    </GridToolbarContainer>
-  );
-}
+const csvConfig = mkConfig({
+  fieldSeparator: ",",
+  decimalSeparator: ".",
+  useKeysAsHeaders: true,
+});
 
 export default function HistoryTable() {
-  const [rows, setRows] = React.useState(initialRows);
-  const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>({});
+  // const [dataUser, setDataUser] = useState<any>([]);
 
-  const handleRowEditStop: GridEventListener<'rowEditStop'> = (params, event) => {
-    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-      event.defaultMuiPrevented = true;
-    }
+  // Funcion para traer usuarios de la bd
+  // const getEmployees = async () => {
+  //   try {
+  //     const res = await getAxiosRequest("/employees");
+  //     const employeesWithCompany = res.map((employee: Employee) => ({
+  //       ...employee,
+  //       company: employee.company?.name,
+  //     }));
+  //     setDataUser(employeesWithCompany);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const handleExportRows = (rows: Row[]) => {
+    const rowData = rows.map((row) => row.original);
+    const csv = generateCsv(csvConfig)(rowData);
+    download(csvConfig)(csv);
   };
 
-  const handleEditClick = (id: GridRowId) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  const handleExportData = () => {
+    const csv = generateCsv(csvConfig)(userData);
+    download(csvConfig)(csv);
   };
 
-  const handleSaveClick = (id: GridRowId) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-  };
+  const table = useMaterialReactTable({
+    columns,
+    data: userData || [],
+    enableRowSelection: true,
+    paginationDisplayMode: "pages",
+    positionToolbarAlertBanner: "bottom",
+    enableColumnFilters: false,
+    initialState: { density: "compact" },
+    enableDensityToggle: false,
+    enableHiding: false,
+    enableFullScreenToggle: false,
+    enableClickToCopy: true,
+    enableRowNumbers: true,
+    renderTopToolbarCustomActions: ({ table }) => (
+      <Box
+        sx={{
+          display: "flex",
+          gap: ".6rem",
+          padding: "8px",
+          flexWrap: "wrap",
+        }}
+      >
+        <Button
+          variant="contained"
+          sx={{ color: "#fff", fontSize: "1.29rem" }}
+          // onClick={getEmployees}
+        >
+          <IconLU.LuRefreshCcw />
+        </Button>
+        <Button
+          variant="contained"
+          //export all data that is currently in the table (ignore pagination, sorting, filtering, etc.)
+          onClick={handleExportData}
+          startIcon={<FileDownloadIcon />}
+          sx={{ color: "#fff" }}
+        >
+          Export
+        </Button>
+        <Button
+          variant="contained"
+          disabled={
+            !table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
+          }
+          //only export selected rows
+          onClick={() => handleExportRows(table.getSelectedRowModel().rows)}
+          startIcon={<FileDownloadIcon />}
+          sx={{ color: "#fff" }}
+        >
+          Export Selected Rows
+        </Button>
+      </Box>
+    ),
+  });
 
-  const handleDeleteClick = (id: GridRowId) => () => {
-    setRows(rows.filter((row) => row.id !== id));
-  };
+  useEffect(() => {
+    // getEmployees();
+    const intervalId = setInterval(() => {
+      // clearInterval(intervalId);
+    }, 1000);
 
-  const handleCancelClick = (id: GridRowId) => () => {
-    setRowModesModel({
-      ...rowModesModel,
-      [id]: { mode: GridRowModes.View, ignoreModifications: true },
-    });
-
-    const editedRow = rows.find((row) => row.id === id);
-    if (editedRow!.isNew) {
-      setRows(rows.filter((row) => row.id !== id));
-    }
-  };
-
-  const processRowUpdate = (newRow: GridRowModel) => {
-    const updatedRow = { ...newRow, isNew: false };
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    return updatedRow;
-  };
-
-  const handleRowModesModelChange = (newRowModesModel: GridRowModesModel) => {
-    setRowModesModel(newRowModesModel);
-  };
-
-  const columns: GridColDef[] = [
-    { field: 'name', headerName: 'Name', width: 180, editable: true },
-    {
-      field: 'age',
-      headerName: 'Age',
-      type: 'number',
-      width: 80,
-      align: 'left',
-      headerAlign: 'left',
-      editable: true,
-    },
-    {
-      field: 'joinDate',
-      headerName: 'Join date',
-      type: 'date',
-      width: 180,
-      editable: true,
-    },
-    {
-      field: 'role',
-      headerName: 'Department',
-      width: 220,
-      editable: true,
-      type: 'singleSelect',
-      valueOptions: ['Market', 'Finance', 'Development'],
-    },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: 'Actions',
-      width: 100,
-      cellClassName: 'actions',
-      getActions: ({ id }) => {
-        const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
-
-        if (isInEditMode) {
-          return [
-            <GridActionsCellItem
-              icon={<SaveIcon />}
-              label="Save"
-              sx={{
-                color: 'primary.main',
-              }}
-              onClick={handleSaveClick(id)}
-            />,
-            <GridActionsCellItem
-              icon={<CancelIcon />}
-              label="Cancel"
-              className="textPrimary"
-              onClick={handleCancelClick(id)}
-              color="inherit"
-            />,
-          ];
-        }
-
-        return [
-          <GridActionsCellItem
-            icon={<EditIcon />}
-            label="Edit"
-            className="textPrimary"
-            onClick={handleEditClick(id)}
-            color="inherit"
-          />,
-          <GridActionsCellItem
-            icon={<DeleteIcon />}
-            label="Delete"
-            onClick={handleDeleteClick(id)}
-            color="inherit"
-          />,
-        ];
-      },
-    },
-  ];
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
 
   return (
-    <Box
-      sx={{
-        height: 500,
-        width: '100%',
-        '& .actions': {
-          color: 'text.secondary',
-        },
-        '& .textPrimary': {
-          color: 'text.primary',
-        },
-      }}
-    >
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        editMode="row"
-        rowModesModel={rowModesModel}
-        onRowModesModelChange={handleRowModesModelChange}
-        onRowEditStop={handleRowEditStop}
-        processRowUpdate={processRowUpdate}
-        slots={{
-          toolbar: EditToolbar as GridSlots['toolbar'],
-        }}
-        slotProps={{
-          toolbar: { setRows, setRowModesModel },
-        }}
-      />
-    </Box>
+    <>
+      <MaterialReactTable table={table} />;
+    </>
   );
-}
+};
