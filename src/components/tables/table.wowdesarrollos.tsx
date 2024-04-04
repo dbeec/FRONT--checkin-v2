@@ -7,14 +7,9 @@ import { Box, Button } from "@mui/material";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { mkConfig, generateCsv, download } from "export-to-csv";
 import { useEffect, useState } from "react";
-// import moment from "moment";
 import * as IconLU from "react-icons/lu";
 import axios from "axios";
 import { apiBackend } from "../../config/config";
-
-type Row = {
-  original: any;
-};
 
 const columnHelper = createMRTColumnHelper();
 
@@ -43,6 +38,11 @@ const columns = [
     header: "Email",
     size: 1,
   }),
+
+  columnHelper.accessor("stateType.state", {
+    header: "State",
+    size: 1,
+  }),
 ];
 
 const csvConfig = mkConfig({
@@ -53,7 +53,7 @@ const csvConfig = mkConfig({
 
 const WowDesarrollosTable = () => {
   const [dataUser, setDataUser] = useState<any>([]);
-  
+
   // Funcion para traer usuarios de la bd
   const getEmployees = async () => {
     try {
@@ -64,16 +64,51 @@ const WowDesarrollosTable = () => {
     }
   };
 
-  const handleExportRows = (rows: Row[]) => {
-    const rowData = rows.map((row) => row.original);
-    const csv = generateCsv(csvConfig)(rowData);
+  const handleExportSelectedRow = () => {
+    const selectedRows = table.getSelectedRowModel().rows;
+    if (selectedRows.length === 1) {
+      const selectedRow = selectedRows[0].original;
+      const { documentType, document, full_name, role, email, stateType } = selectedRow;
+      const csvData = {
+        documentType: documentType.type,
+        document,
+        full_name,
+        role: role.name,
+        email,
+        stateType: stateType.state,
+      };
+      const customCsvData = {
+        "Tipo de Documento": csvData.documentType,
+        "Documento": csvData.document,
+        "Nombre Completo": csvData.full_name,
+        "Rol": csvData.role,
+        "Correo Electrónico": csvData.email,
+        "Estado": csvData.stateType,
+      };
+
+      const csv = generateCsv(csvConfig)([customCsvData]);
+      download(csvConfig)(csv);
+    }
+  };
+
+
+  const handleExportData = () => {
+    const filteredData = dataUser.map((user: any) => {
+      const customData = {
+        "Tipo de Documento": user.documentType.type,
+        "Documento": user.document,
+        "Nombre Completo": user.full_name,
+        "Rol": user.role.name,
+        "Correo Electrónico": user.email,
+        "Estado": user.stateType.state,
+      };
+      return customData;
+    });
+
+    const csv = generateCsv(csvConfig)(filteredData);
     download(csvConfig)(csv);
   };
 
-  const handleExportData = () => {
-    const csv = generateCsv(csvConfig)(dataUser);
-    download(csvConfig)(csv);
-  };
 
   const table = useMaterialReactTable({
     columns,
@@ -106,20 +141,19 @@ const WowDesarrollosTable = () => {
         </Button>
         <Button
           variant="contained"
-          //export all data that is currently in the table (ignore pagination, sorting, filtering, etc.)
           onClick={handleExportData}
           startIcon={<FileDownloadIcon />}
           sx={{ color: "#fff" }}
         >
           Export
         </Button>
+
         <Button
           variant="contained"
           disabled={
             !table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
           }
-          //only export selected rows
-          onClick={() => handleExportRows(table.getSelectedRowModel().rows)}
+          onClick={() => handleExportSelectedRow()}
           startIcon={<FileDownloadIcon />}
           sx={{ color: "#fff" }}
         >

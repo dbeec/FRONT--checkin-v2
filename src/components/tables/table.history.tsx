@@ -17,7 +17,7 @@ type Row = {
 const columnHelper = createMRTColumnHelper();
 
 const columns = [
-  columnHelper.accessor("document", {
+  columnHelper.accessor("document.type", {
     header: "Document Type",
     size: 1,
   }),
@@ -32,7 +32,7 @@ const columns = [
     Cell: ({ cell }) => <div>{cell.row.original.name?.toUpperCase()}</div>,
   }),
   
-  columnHelper.accessor("date", {
+  columnHelper.accessor("email", {
     header: "Email",
     size: 10,
   }),
