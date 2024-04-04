@@ -35,18 +35,18 @@ export default function CreateNewUser() {
   ) => {
     ev.preventDefault();
     try {
-        await axios.post(`${apiBackend}/user`, createUser);
-        toast.success("Usuario creado correctamente", {
-          duration: 1000,
-        });
-        setCreateUser({
-          type: "",
-          document: "",
-          full_name: "",
-          email: "",
-          password: "",
-          role: "",
-        });
+      await axios.post(`${apiBackend}/user`, createUser);
+      toast.success("Usuario creado correctamente", {
+        duration: 1000,
+      });
+      setCreateUser({
+        type: "",
+        document: "",
+        full_name: "",
+        email: "",
+        password: "",
+        role: "",
+      });
     } catch (error) {
       toast.error("Error al crear usuario", {
         duration: 1000,
@@ -69,15 +69,16 @@ export default function CreateNewUser() {
     <>
       <form className="form" onSubmit={handleSubmitCreateNewUser}>
         <TextField
+          className="with"
           id="doctype"
           select
           label="Document type"
           name="type"
           required={true}
           size="small"
-          sx={{ maxWidth: 105, minWidth: 100 }}
           onChange={handleChange}
           value={createUser.type}
+          sx={{ backgroundColor: "#302c2c07" }}
         >
           {documentTypes.map((option) => (
             <MenuItem key={option.type} value={option.type}>
@@ -87,6 +88,7 @@ export default function CreateNewUser() {
         </TextField>
 
         <TextField
+          className="with"
           id="doc"
           label="Document"
           name="document"
@@ -100,11 +102,13 @@ export default function CreateNewUser() {
             "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
               borderColor: "#302c2c",
             },
-            maxWidth: 200,
+            // maxWidth: 200,
+            backgroundColor: "#302c2c07"
           }}
         />
 
         <TextField
+          className="with"
           id="mail"
           label="Email"
           type="email"
@@ -119,7 +123,8 @@ export default function CreateNewUser() {
             "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
               borderColor: "#302c2c",
             },
-            maxWidth: 300,
+            // maxWidth: 300,
+            backgroundColor: "#302c2c07"
           }}
         />
 
@@ -138,10 +143,12 @@ export default function CreateNewUser() {
             "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
               borderColor: "#302c2c",
             },
+            backgroundColor: "#302c2c07"
           }}
         />
 
         <TextField
+          className="with"
           id="rol"
           label="Role"
           name="role"
@@ -155,10 +162,13 @@ export default function CreateNewUser() {
             "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
               borderColor: "#302c2c",
             },
+            // maxWidth: 150,
+            backgroundColor: "#302c2c07"
           }}
         />
 
         <TextField
+          className="with"
           id="pass"
           type="password"
           label="Password"
@@ -173,6 +183,7 @@ export default function CreateNewUser() {
             "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
               borderColor: "#302c2c",
             },
+            backgroundColor: "#302c2c07"
           }}
         />
 
