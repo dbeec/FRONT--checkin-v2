@@ -1,7 +1,4 @@
-import {
-  MenuItem,
-  TextField,
-} from "@mui/material";
+import { MenuItem, TextField } from "@mui/material";
 import "./create.users.css";
 import { useEffect, useState } from "react";
 import { apiBackend } from "../../../config/config";
@@ -11,13 +8,15 @@ interface TypesState {
   type: string;
 }
 export default function CreateNewUser() {
-  const [documentTypes, setDocumentTypes] = useState<TypesState[]>([])
+  const [documentTypes, setDocumentTypes] = useState<TypesState[]>([]);
   const [createUser, setCreateUser] = useState({
-    documentType: "",
+    type: "",
     document: "",
-    email: "",
     full_name: "",
-  })
+    email: "",
+    password: "",
+    role: "",
+  });
 
   // Funcion para cambiar el valor de los inputs
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,11 +29,21 @@ export default function CreateNewUser() {
   };
 
   // Funcion para crear un usuario
-  const handleSubmitCreateNewUser = async (ev: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitCreateNewUser = async (
+    ev: React.FormEvent<HTMLFormElement>
+  ) => {
     ev.preventDefault();
     try {
       await axios.post(`${apiBackend}/user`, createUser);
       console.log("Usuario creado correctamente");
+      setCreateUser({
+        type: "",
+        document: "",
+        full_name: "",
+        email: "",
+        password: "",
+        role: "",
+      });
     } catch (error) {
       console.error("Error al crear usuario:", error);
     }
@@ -43,26 +52,26 @@ export default function CreateNewUser() {
   useEffect(() => {
     const fetchDocumentTypes = async () => {
       try {
-        const responseTypes = await axios.get(`${apiBackend}/document-types`)
-        setDocumentTypes(responseTypes.data)
+        const responseTypes = await axios.get(`${apiBackend}/document-types`);
+        setDocumentTypes(responseTypes.data);
       } catch (error) {
         console.error(error);
       }
-    }
-    fetchDocumentTypes()
-  }, [])
+    };
+    fetchDocumentTypes();
+  }, []);
   return (
     <>
       <form className="form" onSubmit={handleSubmitCreateNewUser}>
         <TextField
-          id="outlined-select-currency"
+          id="doctype"
           select
           label="Document type"
           name="type"
           size="small"
           sx={{ maxWidth: 105, minWidth: 100 }}
           onChange={handleChange}
-          value={createUser.documentType}
+          value={createUser.type}
         >
           {documentTypes.map((option) => (
             <MenuItem key={option.type} value={option.type}>
@@ -72,9 +81,10 @@ export default function CreateNewUser() {
         </TextField>
 
         <TextField
-          id="outlined-basic"
+          id="doc"
           label="Document"
           name="document"
+          autoComplete="off"
           variant="outlined"
           size="small"
           onChange={handleChange}
@@ -88,10 +98,11 @@ export default function CreateNewUser() {
         />
 
         <TextField
-          id="outlined-basic"
+          id="mail"
           label="Email"
           type="email"
           name="email"
+          autoComplete="off"
           variant="outlined"
           size="small"
           onChange={handleChange}
@@ -104,14 +115,49 @@ export default function CreateNewUser() {
           }}
         />
 
-        <TextField className="with"
-          id="outlined-basic"
+        <TextField
+          className="with"
+          id="name"
           label="Full name"
           name="full_name"
+          autoComplete="off"
           variant="outlined"
           size="small"
           onChange={handleChange}
           value={createUser.full_name}
+          sx={{
+            "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#302c2c",
+            },
+          }}
+        />
+
+        <TextField
+          id="rol"
+          label="Role"
+          name="role"
+          autoComplete="off"
+          variant="outlined"
+          size="small"
+          onChange={handleChange}
+          value={createUser.role}
+          sx={{
+            "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#302c2c",
+            },
+          }}
+        />
+
+        <TextField
+          id="pass"
+          type="password"
+          label="Password"
+          name="password"
+          autoComplete="off"
+          variant="outlined"
+          size="small"
+          onChange={handleChange}
+          value={createUser.password}
           sx={{
             "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
               borderColor: "#302c2c",
