@@ -1,3 +1,4 @@
+import { Toaster } from "sonner";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
@@ -59,5 +60,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <RouterProvider router={router} />
       {/* </Protected> */}
     </ThemeProvider>
+    <Toaster position="top-right" expand={false} richColors closeButton />
   </React.StrictMode>
 );

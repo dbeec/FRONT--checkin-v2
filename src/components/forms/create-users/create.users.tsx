@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import { MenuItem, TextField } from "@mui/material";
 import "./create.users.css";
 import { useEffect, useState } from "react";
@@ -34,18 +35,22 @@ export default function CreateNewUser() {
   ) => {
     ev.preventDefault();
     try {
-      await axios.post(`${apiBackend}/user`, createUser);
-      console.log("Usuario creado correctamente");
-      setCreateUser({
-        type: "",
-        document: "",
-        full_name: "",
-        email: "",
-        password: "",
-        role: "",
-      });
+        await axios.post(`${apiBackend}/user`, createUser);
+        toast.success("Usuario creado correctamente", {
+          duration: 1000,
+        });
+        setCreateUser({
+          type: "",
+          document: "",
+          full_name: "",
+          email: "",
+          password: "",
+          role: "",
+        });
     } catch (error) {
-      console.error("Error al crear usuario:", error);
+      toast.error("Error al crear usuario", {
+        duration: 1000,
+      });
     }
   };
 
@@ -68,6 +73,7 @@ export default function CreateNewUser() {
           select
           label="Document type"
           name="type"
+          required={true}
           size="small"
           sx={{ maxWidth: 105, minWidth: 100 }}
           onChange={handleChange}
@@ -86,6 +92,7 @@ export default function CreateNewUser() {
           name="document"
           autoComplete="off"
           variant="outlined"
+          required={true}
           size="small"
           onChange={handleChange}
           value={createUser.document}
@@ -104,6 +111,7 @@ export default function CreateNewUser() {
           name="email"
           autoComplete="off"
           variant="outlined"
+          required={true}
           size="small"
           onChange={handleChange}
           value={createUser.email}
@@ -122,6 +130,7 @@ export default function CreateNewUser() {
           name="full_name"
           autoComplete="off"
           variant="outlined"
+          required={true}
           size="small"
           onChange={handleChange}
           value={createUser.full_name}
@@ -138,6 +147,7 @@ export default function CreateNewUser() {
           name="role"
           autoComplete="off"
           variant="outlined"
+          required={true}
           size="small"
           onChange={handleChange}
           value={createUser.role}
@@ -155,6 +165,7 @@ export default function CreateNewUser() {
           name="password"
           autoComplete="off"
           variant="outlined"
+          required={true}
           size="small"
           onChange={handleChange}
           value={createUser.password}
