@@ -3,69 +3,46 @@ import "./login.css";
 import React, { useState } from "react";
 import { apiBackend } from "../../config/config";
 import axios from "axios";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import delayPromise from "../utilities/sooner/messages";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function Login() {
   const navigate = useNavigate();
   const [auth, setAuth] = useState({
-    document: "",
-    empPass: "",
+    email: "",
+    password: "",
   });
   const handleInputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    // let value = e.target.value.replace(/\D/g, "");
+
     setAuth({
       ...auth,
       [name]: value,
     });
   };
 
-  const handleLogin = (e: React.FormEvent<HTMLButtonElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log(auth.document, auth.empPass);
-    if (auth.document === "" || auth.empPass === "") {
-      return toast.warning("Please complete all fields to log in.");
-    }
-    axios
-      .post(`${apiBackend}/auth/login`, {
-        document: auth.document,
-        empPass: auth.empPass,
-      })
-      .then((response) => {
-        if (response.status === 201) {
-          const token = response.data.AccessToken;
-          localStorage.setItem("access_token", token);
-          toast.success("YEY, you are logged in");
-          setTimeout(() => navigate("/admin/wowdesarrollos"), 1300);
-        }
-      })
-      .catch((error) => {
-        if (error.request) {
-          const promise = () =>
-            new Promise((_, reject) =>
-              setTimeout(() => reject({ name: "Sonner" }), 2000)
-            );
-          toast.promise(promise, {
-            loading: "Loading...",
-            success: (data: any) => {
-              return `${data.name} toast has been added`;
-            },
-            error: "Error",
-          });
-        }
-        toast.error(error.response.data.message);
-      })
-      .finally(() => {
-        // toast.error("Error de conexión en el servidor");
-        toast.promise(delayPromise(), {
-          loading: "espere por favor.",
-          // success: "todo bien",
-          error: "todo mal",
-        });
+    try {
+      if (auth.email === "" || auth.password === "") {
+        return toast.warning("Please complete all fields to log in.");
+      }
+      const response = await axios.post(`${apiBackend}/auth/login`, {
+        email: auth.email,
+        password: auth.password,
       });
+      if (response.status === 201) {
+        const token = response.data.access_token;
+        localStorage.setItem("access_token", token);
+        toast.success("YEY, you are logged in", {
+          duration: 1400
+        });
+        setTimeout(() => navigate("/admin/wowdesarrollos"), 1500);
+      }
+    } catch (error) {
+      toast.error("Internal error");
+    }
   };
 
   // Función para ocultar la contraseña
@@ -78,13 +55,6 @@ export default function Login() {
 
   return (
     <>
-      <Toaster
-        richColors
-        expand
-        visibleToasts={1}
-        position="top-right"
-        duration={1000}
-      />
       <div className="main">
         <form className="main__form">
           <div className="main__titleform">
@@ -101,7 +71,7 @@ export default function Login() {
               variant="outlined"
               autoFocus
               onChange={handleInputOnChange}
-              // value={auth.document}
+              value={auth.email}
               size="small"
               sx={{
                 "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
@@ -117,9 +87,10 @@ export default function Login() {
               id="outlined-basic"
               label="Password"
               type={showPassword ? 'text' : 'password'}
-              name="empPass"
+              name="password"
               variant="outlined"
               onChange={handleInputOnChange}
+              value={auth.password}
               size="small"
               sx={{
                 "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
