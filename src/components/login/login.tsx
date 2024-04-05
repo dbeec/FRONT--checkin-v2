@@ -32,7 +32,6 @@ export default function Login() {
         email: auth.email,
         password: auth.password,
       });
-      console.log(response)
       if (response.status === 201) {
         const token = response.data.access_token;
         localStorage.setItem("access_token", token);
