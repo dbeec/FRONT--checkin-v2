@@ -1,4 +1,3 @@
-// import moment from "moment";
 import {
   Avatar,
   Box,
@@ -8,6 +7,7 @@ import {
   MenuItem,
   Tooltip,
 } from "@mui/material";
+import { toast } from "sonner";
 import "./header.css";
 import { MdMenu } from "react-icons/md";
 import moment from "moment";
@@ -21,13 +21,14 @@ export default function Header({ set_open }: { set_open: () => void }) {
 
   // funcion para cerrar sesion
   const logoutSession = () => {
-    localStorage.removeItem("access token");
-    // alert("YEPP, You have successfully logged out! 😶‍🌫️");
+    localStorage.removeItem("access_token");
+    toast.success("YEPP, You have successfully logged out! 😶‍🌫️");
     setTimeout(() => {
       navigate("/");
-    }, 500);
+    }, 1000);
   };
 
+  //avatar
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {

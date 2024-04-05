@@ -32,16 +32,29 @@ export default function Login() {
         email: auth.email,
         password: auth.password,
       });
+      console.log(response)
       if (response.status === 201) {
         const token = response.data.access_token;
         localStorage.setItem("access_token", token);
-        toast.success("YEY, you are logged in", {
-          duration: 1400
-        });
-        setTimeout(() => navigate("/admin/wowdesarrollos"), 1500);
+        const verifyToken = localStorage.getItem("access_token");
+        if (verifyToken === token) {
+          toast.success("YEY, you are logged in", {
+            duration: 1400
+          });
+          setTimeout(() => navigate("/admin/wowdesarrollos"), 1500);
+        }
       }
     } catch (error) {
-      toast.error("Internal error");
+      if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+        toast.error("OPPS, Invalid Password and/or Email address. Contact the administrator.", {
+          duration: 1200
+        });
+      } else {
+        toast.error("OOH NO!,  An error occurred... Please try again later.", {
+          duration: 1200
+        });
+      }
+      console.log(error);
     }
   };
 
