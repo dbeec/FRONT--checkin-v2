@@ -60,6 +60,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <RouterProvider router={router} />
       {/* </Protected> */}
     </ThemeProvider>
-    <Toaster position="top-right" expand={false} richColors closeButton />
+    <Toaster position="top-right" expand={false} richColors closeButton/>
   </React.StrictMode>
 );
