@@ -1,7 +1,12 @@
+import './et.css'
 export default function EtFundacion() {
   return (
     <>
-      <h1>Aqui van las tablas de et fundacion</h1>
+      <div className='content'>
+        <div className='border'>
+          <p>hola</p>
+        </div>
+      </div>
     </>
   );
 

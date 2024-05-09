@@ -10,7 +10,7 @@ export default function Users() {
         title="Users Management"
         text="Create employees for your company"
       />
-      <div className="form_section">
+      <div>
         {/* Management form here */}
         <CreateNewUser />
       </div>
